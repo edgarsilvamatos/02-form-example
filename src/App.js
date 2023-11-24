@@ -3,46 +3,67 @@ import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-    const [weight, setWeight] = useState(0);
-    const [height, setHeight] = useState(0);
-    const [BMI, setBMI] = useState(0);
-    const [BMIStatus, setBMIStatus] = useState("");
+    const [selectedOption, setSelectedOption] = useState('');
+    const [displayText, setDisplayText] = useState('fuck');
 
-    const set_weight = (event) => setWeight(parseInt(event.target.value));
-    const set_height = (event) => setHeight(parseInt(event.target.value));
+    const handleOptionChange = (option) => {
+        setSelectedOption(option);
 
-    const calculateBMI = () => {
-        const calculatedBMI = weight / ((height / 100) * (height / 100));
-        setBMI(calculatedBMI);
-        determineBMIStatus(calculatedBMI);
-    }
-
-    const determineBMIStatus = (calculatedBMI) => {
-        if (calculatedBMI < 18.5) {
-            setBMIStatus("Underweight");
-        } else if (calculatedBMI >= 18.5 && calculatedBMI < 24.9) {
-            setBMIStatus("Normal weight");
-        } else if (calculatedBMI >= 25 && calculatedBMI < 29.9) {
-            setBMIStatus("Overweight");
-        } else {
-            setBMIStatus("Obese");
+        // Update the display text based on the selected option
+        switch (option) {
+            case 'off':
+                setDisplayText('fuck off');
+                break;
+            case 'me':
+                setDisplayText('fuck me');
+                break;
+            case 'you':
+                setDisplayText('fuck you');
+                break;
+            default:
+                setDisplayText('fuck');
         }
-    }
+    };
 
     return (
         <div className="container">
-            <p>weight (kg): </p>
-            <input type="text" onChange={set_weight}></input>
-            <p />
-            <p>height (cm): </p>
-            <input type="text" onChange={set_height}></input>
-            <p />
-            <button onClick={calculateBMI}>calculate</button>
-            <p />
-            <p>The BMI is: {BMI}</p>
-            <p>Status: {BMIStatus}</p>
+            <h1>{displayText}</h1>
+
+            <div>
+                <label>
+                    <input
+                        type="radio"
+                        value="off"
+                        checked={selectedOption === 'off'}
+                        onChange={() => handleOptionChange('off')}
+                    />
+                    Off
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input
+                        type="radio"
+                        value="me"
+                        checked={selectedOption === 'me'}
+                        onChange={() => handleOptionChange('me')}
+                    />
+                    Me
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input
+                        type="radio"
+                        value="you"
+                        checked={selectedOption === 'you'}
+                        onChange={() => handleOptionChange('you')}
+                    />
+                    You
+                </label>
+            </div>
         </div>
-    )
+    );
 }
 
 export default App;
