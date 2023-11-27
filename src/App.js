@@ -1,69 +1,42 @@
-import React, { useState } from "react";
-import './App.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from 'react';
 
-function App() {
-    const [selectedOption, setSelectedOption] = useState('');
-    const [displayText, setDisplayText] = useState('fuck');
+const App = () => {
+  const [tasks, setTasks] = useState([              // Set list of tasks
+    { id: 1, text: 'Task 1', completed: false },
+    { id: 2, text: 'Task 2', completed: false },
+    { id: 3, text: 'Task 3', completed: false },
+  ]);
 
-    const handleOptionChange = (option) => {
-        setSelectedOption(option);
+  const updateProgress = () => {
+    const completedTasks = tasks.filter(task => task.completed).length;
+    return (completedTasks / tasks.length) * 100;       // Return relative value of how many tasks are done
+  };
 
-        // Update the display text based on the selected option
-        switch (option) {
-            case 'off':
-                setDisplayText('fuck off');
-                break;
-            case 'me':
-                setDisplayText('fuck me');
-                break;
-            case 'you':
-                setDisplayText('fuck you');
-                break;
-            default:
-                setDisplayText('fuck');
-        }
-    };
-
-    return (
-        <div className="container">
-            <h1>{displayText}</h1>
-
-            <div>
-                <label>
-                    <input
-                        type="radio"
-                        value="off"
-                        checked={selectedOption === 'off'}
-                        onChange={() => handleOptionChange('off')}
-                    />
-                    Off
-                </label>
-            </div>
-            <div>
-                <label>
-                    <input
-                        type="radio"
-                        value="me"
-                        checked={selectedOption === 'me'}
-                        onChange={() => handleOptionChange('me')}
-                    />
-                    Me
-                </label>
-            </div>
-            <div>
-                <label>
-                    <input
-                        type="radio"
-                        value="you"
-                        checked={selectedOption === 'you'}
-                        onChange={() => handleOptionChange('you')}
-                    />
-                    You
-                </label>
-            </div>
-        </div>
+  const handleCheckboxChange = (taskId) => {            // Set the correct completed value
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
+      )
     );
-}
+  };
+
+  return (
+    <div>
+      <h2>Task List</h2>
+      {tasks.map((task) => (
+        <div key={task.id}>
+          <input
+            type="checkbox"
+            id={`task${task.id}`}   // Set task<id> as id
+            checked={task.completed}    // Set completed to a boolean value
+            onChange={() => handleCheckboxChange(task.id)}  // Handle change
+          />
+          <label htmlFor={`task${task.id}`}>{task.text}</label>
+        </div>
+      ))}
+      <progress value={updateProgress()} max="100"></progress>
+    </div>
+  );
+};
 
 export default App;
