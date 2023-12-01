@@ -21,7 +21,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div style={{ marginLeft: '15px' }}>
       <h2>Task List</h2>
       {tasks.map((task) => (
         <div key={task.id}>
