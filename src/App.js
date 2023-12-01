@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div style={{ marginLeft: '15px' }}>
-      <h2>Task List</h2>
+      <h2>To-Do List</h2>
       <fieldset style={{ width: '20vw' }}>
       <legend>Select the completed tasks:</legend>
         {tasks.map((task) => (
@@ -36,7 +36,7 @@ const App = () => {
             <label htmlFor={`task${task.id}`}>{task.text}</label>
           </div>
         ))}
-        <progress value={updateProgress()} max="100"></progress>
+        <progress value={updateProgress()} max="100" style={{ width: '100%'}}></progress>
       </fieldset>
     </div>
   );
