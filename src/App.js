@@ -25,11 +25,11 @@ const App = () => {
       <h2>To-Do List</h2>
       <fieldset style={{ width: '20vw' }}>
       <legend>Select the completed tasks:</legend>
-        {tasks.map((task) => (
+        {tasks.map((task) => (        // Create all the tasks from the list
           <div key={task.id}>
             <input
               type="checkbox"
-              id={`task${task.id}`}   // Set task<id> as id
+              id={`task${task.id}`}       // Set task<id> as id
               checked={task.completed}    // Set completed to a boolean value
               onChange={() => handleCheckboxChange(task.id)}  // Handle change
             />
