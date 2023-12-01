@@ -23,18 +23,21 @@ const App = () => {
   return (
     <div style={{ marginLeft: '15px' }}>
       <h2>Task List</h2>
-      {tasks.map((task) => (
-        <div key={task.id}>
-          <input
-            type="checkbox"
-            id={`task${task.id}`}   // Set task<id> as id
-            checked={task.completed}    // Set completed to a boolean value
-            onChange={() => handleCheckboxChange(task.id)}  // Handle change
-          />
-          <label htmlFor={`task${task.id}`}>{task.text}</label>
-        </div>
-      ))}
-      <progress value={updateProgress()} max="100"></progress>
+      <fieldset style={{ width: '20vw' }}>
+      <legend>Select the completed tasks:</legend>
+        {tasks.map((task) => (
+          <div key={task.id}>
+            <input
+              type="checkbox"
+              id={`task${task.id}`}   // Set task<id> as id
+              checked={task.completed}    // Set completed to a boolean value
+              onChange={() => handleCheckboxChange(task.id)}  // Handle change
+            />
+            <label htmlFor={`task${task.id}`}>{task.text}</label>
+          </div>
+        ))}
+        <progress value={updateProgress()} max="100"></progress>
+      </fieldset>
     </div>
   );
 };
